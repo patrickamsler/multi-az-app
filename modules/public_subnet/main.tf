@@ -31,3 +31,24 @@ resource "aws_route_table_association" "this_rout_table_association" {
   subnet_id = aws_subnet.this_subnet.id
   route_table_id = aws_route_table.this_rtb.id
 }
+
+resource "aws_eip" "nat_eip" {
+  vpc = true
+
+  tags = {
+    Name = "${var.name}-nat-eip"
+    Owner = var.owner
+    Env = var.environment
+  }
+}
+
+resource "aws_nat_gateway" "nat_gw" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = aws_subnet.this_subnet.id
+
+  tags = {
+    Name = "${var.name}-nat-gateway"
+    Owner = var.owner
+    Env = var.environment
+  }
+}

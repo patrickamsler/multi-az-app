@@ -21,3 +21,7 @@ variable "az" {
 variable "subnet_cidr_block" {
   description = "Subnet CIDR block"
 }
+
+variable "nat_gw_id" {
+  description = "The ID of the nat gateway from the public subnet"
+}

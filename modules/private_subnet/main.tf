@@ -15,6 +15,11 @@ resource "aws_subnet" "this_subnet" {
 resource "aws_route_table" "this_rtb" {
   vpc_id = var.vpc_id
 
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = var.nat_gw_id
+  }
+
   tags = {
     Name = "${var.name}-route-table"
     Owner = var.owner
