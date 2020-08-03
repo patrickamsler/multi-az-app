@@ -41,7 +41,7 @@ module "private_subnet_a" {
     owner = var.owner
     environment = var.environment
     az = "${var.region}a"
-    nat_gw_id = module.public_subnet_a.nat_gw_id // natgatway in public subnet
+    nat_gw_id = module.public_subnet_a.nat_gw_id // natgatway in public subnet a
 }
 
 module "private_subnet_b" {
@@ -52,5 +52,5 @@ module "private_subnet_b" {
     owner = var.owner
     environment = var.environment
     az = "${var.region}b"
-    nat_gw_id = module.public_subnet_b.nat_gw_id // natgatway in public subnet
+    nat_gw_id = module.public_subnet_b.nat_gw_id // natgatway in public subnet b
 }
