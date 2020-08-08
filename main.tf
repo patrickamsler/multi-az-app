@@ -55,6 +55,13 @@ module "private_subnet_b" {
   nat_gw_id = module.public_subnet_b.nat_gw_id // natgatway in public subnet b
 }
 
+module "key_pair" {
+  source = "./modules/key_pair"
+  key_name = "tf_demo_key"
+  key_filename = "tf_demo.pem"
+}
+
+// load balancer in public subnet
 module "tf_demo_alb" {
   source = "./modules/alb"
   lb_name = "tf-demo-alb"
@@ -63,4 +70,19 @@ module "tf_demo_alb" {
   environment = var.environment
   vpc_id = module.tf_demo_vpc.vpc_id
   subnets =  [module.public_subnet_a.id, module.public_subnet_b.id]
+}
+
+// autoscaling group in private subnet
+module "tf_demo_asg" {
+  source = "./modules/asg"
+  vpc_id = module.tf_demo_vpc.vpc_id
+  asg_name = "tf-demo-asg"
+  owner = var.owner
+  environment = var.environment
+  min_size = "2"
+  max_size = "2"
+  user_data_filename = "install_softwares.sh"
+  alb_target_group_arn = module.tf_demo_alb.tg_arn
+  key_name = module.key_pair.key_name
+  vpc_zone_identifier =  [module.private_subnet_a.id, module.private_subnet_b.id]
 }
