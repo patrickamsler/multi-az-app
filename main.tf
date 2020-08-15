@@ -86,3 +86,15 @@ module "tf_demo_asg" {
   key_name = module.key_pair.key_name
   vpc_zone_identifier =  [module.private_subnet_a.id, module.private_subnet_b.id]
 }
+
+// create bastion host
+// ideally, every public subnet has a bastion host
+# module "bastion_host" {
+#   source = "./modules/bastion"
+#   name = "bastion_host_subnet_a"
+#   vpc_id = module.tf_demo_vpc.vpc_id
+#   subnet_id = module.public_subnet_a.id
+#   owner = var.owner
+#   environment = var.environment
+#   key_name = module.key_pair.key_name
+# }
