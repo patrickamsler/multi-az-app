@@ -81,7 +81,7 @@ module "tf_demo_asg" {
   environment = var.environment
   min_size = "2"
   max_size = "2"
-  user_data_filename = "install_softwares.sh"
+  user_data_filename = "install_software.sh"
   alb_target_group_arn = module.tf_demo_alb.tg_arn
   key_name = module.key_pair.key_name
   vpc_zone_identifier =  [module.private_subnet_a.id, module.private_subnet_b.id]

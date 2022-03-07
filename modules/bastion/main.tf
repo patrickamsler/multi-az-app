@@ -1,4 +1,4 @@
-resource "aws_security_group" "bastion_host_secuity_group" {
+resource "aws_security_group" "bastion_host_security_group" {
   name = "${var.name}-security-group"
   vpc_id = var.vpc_id
   ingress {
@@ -27,7 +27,7 @@ resource "aws_instance" "bastion_host" {
   associate_public_ip_address = true
   subnet_id = var.subnet_id
   key_name = var.key_name
-  security_groups = [aws_security_group.bastion_host_secuity_group.id]
+  security_groups = [aws_security_group.bastion_host_security_group.id]
   tags = {
     Name = var.name
     Owner = var.owner
